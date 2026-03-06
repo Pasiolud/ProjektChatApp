@@ -1,0 +1,79 @@
+<section class="friends-section">
+    <h2>Twoi znajomi</h2>
+    <div id="acceptedFriends">
+        {{#if acceptedFriends}}
+        {{#each acceptedFriends}}
+        <p class="acceptedFriend">{{this.name}} <button class="openChat" data-friend="{{this.id}}">Otwórz czat</button>
+        </p>
+        {{/each}}
+        {{else}}
+        <p>Brak Znajomych</p>
+        {{/if}}
+    </div>
+</section>
+
+<section class="pending-section">
+    <h2>Oczekujące zaproszenia {{pendingFriends.length}}</h2>
+    <div id="pendingRequests">
+        {{#if pendingFriends}}
+        {{#each pendingFriends}}
+        <p class="pendingFriend">{{this.name}}<button class="accept"
+            data-friend="{{this.id}}">Akceptuj</button><button class="reject" data-friend="{{this.id}}">Odrzuć</button>
+        </p>
+        {{/each}}
+        {{else}}
+        <p>Brak oczekujących zaproszeń</p>
+        {{/if}}
+    </div>
+</section>
+
+<script>
+    document.querySelectorAll(".accept").forEach(button => {
+        console.log("querySelectorAll")
+        button.addEventListener('click', async (e) => {
+            const parentEntry = button.closest('p');
+            if (parentEntry) {parentEntry.remove()};
+
+            const friendId = e.target.dataset.friend;
+            console.log("FriendID: " + friendId)
+            console.log("Event klikniecia")
+            const res = await fetch('/acceptFriend', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ friendId: friendId })
+            })
+
+            const data = await res.json()
+            if (data.success) {
+                window.location.reload(); // Przeładuj stronę, aby odświeżyć listy znajomych
+            }
+
+        })
+    })
+
+    document.querySelectorAll(".reject").forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const parentEntry = button.closest('p');
+            if (parentEntry) {parentEntry.remove();}
+
+            const friendId = e.target.dataset.friend;
+
+            const res = await fetch('/rejectFriend', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ friendId: friendId })
+            })
+
+            const data = await res.json()
+        })
+    })
+
+    document.querySelectorAll(".openChat").forEach(button => {
+        button.addEventListener('click', async (e) => {
+            const friendId = e.target.dataset.friend
+
+            window.location.href = `/index/${friendId}`;
+        })
+    })
+
+</script>

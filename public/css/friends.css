@@ -1,0 +1,91 @@
+.friends-section,
+.pending-section {
+    max-width: 700px;
+    width: 90%;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.8s ease-out;
+}
+
+.friends-section h2,
+.pending-section h2 {
+    color: #004e6e;
+    margin-bottom: 30px;
+    margin-top: 0;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#acceptedFriends p,
+#pendingRequests p {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    font-size: 16px;
+    color: #333;
+}
+
+#acceptedFriends p:hover,
+#pendingRequests p:hover {
+    transform: translateX(5px);
+    border-left: 4px solid #00bcd4;
+}
+
+#acceptedFriends p button,
+#pendingRequests p button:first-of-type {
+    margin-left: auto;
+}
+
+#pendingRequests p button + button {
+    margin-left: 10px;
+}
+
+
+button.openChat,
+button.accept,
+button.reject {
+    padding: 8px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 600;
+    color: white;
+}
+
+
+button.openChat,
+button.accept {
+    background: linear-gradient(to right, #006994, #00bcd4);
+}
+
+button.openChat:hover,
+button.accept:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 105, 148, 0.3);
+}
+
+button.reject {
+    background: linear-gradient(to right, #e57373, #f44336);
+}
+
+button.reject:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

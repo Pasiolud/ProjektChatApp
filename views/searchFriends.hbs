@@ -1,0 +1,97 @@
+<div class="search-container">
+
+    <h2>Wyszukaj znajomych 🔍</h2>
+
+    <form class="search-box" id="search-box">
+        <input id="searchInput" type="text" placeholder="Wpisz nazwę użytkownika..." name="query" autocomplete="off">
+        {{!-- <button type="submit">Szukaj</button> --}}
+    </form>
+
+    <div class="results" id="results">
+        <!-- TUTAJ DANE Z BACKENdU-->
+    </div>
+
+</div>
+<script>
+
+ document.getElementById('searchInput').addEventListener('input', async (e) => {
+
+
+    if (document.getElementById('searchInput').value.trim()) { 
+
+
+        document.getElementById('results').innerHTML = ""; 
+        const query = e.target.value;
+        const res = await fetch(`/searchFriendsQuery?query=${encodeURIComponent(query)}`);
+        const dataFromBackend = await res.json()
+
+        if (dataFromBackend.length === 0) {
+            document.getElementById('results').innerHTML = "<p>Brak wyników</p>"
+            return
+        }
+
+        dataFromBackend.forEach(user => {
+            document.getElementById('results').innerHTML += `
+                <p>
+                    ${user.name}
+                    <button class='addToFriendsButton' data-username="${user.name}">Dodaj do znajomych</button>
+                </p>
+            `
+        });
+
+        document.querySelectorAll('.addToFriendsButton').forEach(button => {
+
+            button.addEventListener('click', async (e) => {
+                button.disabled = true
+                const username = e.target.dataset.username;
+                console.log("Dodawanie do znaj", username)
+
+                const res2 = await fetch('/addToFriends', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ friendName: username })
+                })
+
+                const data = await res2.json()
+                if (data.success) {
+                    button.innerText = "Zaproszono"
+                }
+
+            })
+        })
+    } 
+    
+    else {
+        document.getElementById('results').innerHTML = "";
+    }
+});
+
+    /* stara implementacja pod przycisk submit
+    document.getElementById('search-box').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        document.getElementById('results').innerHTML = ""
+
+        const query = e.target.query.value;
+        const res = await fetch(`/searchFriendsQuery?query=${encodeURIComponent(query)}`);
+        const dataFromBackend = await res.json()
+
+
+
+        if (dataFromBackend.length === 0) {
+            document.getElementById('results').innerHTML = "<p>Brak wyników</p>"
+            return
+        }
+
+        dataFromBackend.forEach(user => {
+            document.getElementById('results').innerHTML += `
+                <p>
+                ${user.name}
+                <button class='addToFriendsButton' data-username="${user.name}">Dodaj do znajomych</button>
+                </p>
+                `
+        })
+        
+
+       
+    })*/
+</script>

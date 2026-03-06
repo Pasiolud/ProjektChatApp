@@ -1,0 +1,82 @@
+<main class="chat-container">
+
+    <div class="chat-header">
+        <h2>Czat z użytkownikiem: {{friendName}}</h2>
+    </div>
+
+    <ul id="messages" class="messages-list">
+            {{#each messageHistory}}
+                <li class="message {{#if (eq ../userId this.sender)}}my-message{{else}}friend-message{{/if}}">
+                    {{this.content}}
+                    <p class="dateDisplay">
+                        {{this.formattedDate}}
+                    </p>
+                </li>
+            {{/each}}
+    </ul>
+
+    <form id="form" class="message-form">
+        <input id="input" class="message-input" autocomplete="off" placeholder="Napisz wiadomość..." />
+        <button type="submit" class="send-button">Wyślij</button>
+    </form>
+
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+    const friendId = "{{friendId}}";
+    const userId = "{{userId}}";
+    console.log("Twoje id:", userId)
+    console.log("Czatujesz z:", friendId);
+
+    const form = document.getElementById("form");
+    const input = document.getElementById("input");
+    const messages = document.getElementById("messages");
+
+    const socket = io();
+    socket.emit('register',{userId:userId})
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (input.value.trim() === "") return;
+
+        socket.emit("chat message", {
+            to: friendId,
+            text: input.value
+        });
+
+        addMessage(input.value, "me", new Date(Date.now()).toLocaleString('pl-PL'));
+        input.value = "";
+    });
+
+    socket.on("chat message", (data) => {
+        addMessage(data.text, "friend", data.date);
+    });
+
+    function addMessage(text, who, date) {
+        // Wersja z bez daty
+        /*const li = document.createElement("li");
+        li.classList.add("message", who === "me" ? "my-message" : "friend-message");
+        li.textContent = text;
+        messages.appendChild(li);
+        messages.scrollTop = messages.scrollHeight;
+        */
+
+        const messagesList = document.getElementById("messages");
+        const li = document.createElement("li");
+        li.classList.add("message", who === "me" ? "my-message" : "friend-message");
+    
+        const textNode = document.createTextNode(text); 
+        li.appendChild(textNode);
+        const dateDisplay = document.createElement("p");
+        dateDisplay.classList.add("dateDisplay");
+
+        //console.log(date)
+        dateDisplay.textContent = date; 
+        li.appendChild(dateDisplay);
+        messagesList.appendChild(li);
+        messagesList.scrollTop = messagesList.scrollHeight;
+    }
+</script>

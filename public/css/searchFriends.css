@@ -1,0 +1,111 @@
+
+.search-container {
+    max-width: 600px;
+    width: 90%;
+    margin: 40px auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.search-container h2 {
+    color: #004e6e;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.search-box input:focus {
+    border-color: #00bcd4;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(0, 188, 212, 0.15);
+}
+
+.search-box button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    background: linear-gradient(to right, #006994, #00bcd4);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.search-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 105, 148, 0.3);
+}
+
+
+.results {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.results p {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.results p:hover {
+    transform: translateX(5px);
+    border-left: 4px solid #00bcd4;
+}
+
+.addToFriendsButton {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #e0f7fa;
+    color: #006064;
+    border: 1px solid #b2ebf2;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.addToFriendsButton:hover {
+    background-color: #b2ebf2;
+}
+
+.addToFriendsButton:disabled {
+    background-color: #eee;
+    color: #999;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

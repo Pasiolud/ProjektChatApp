@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <title>Logowanie</title>
+  <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Logowanie</h1>
+    <form action="/login" method="post">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" placeholder="Wpisz swój email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" placeholder="Wpisz hasło" required />
+      </div>
+      <button type="submit">Zaloguj</button>
+    </form>
+    <p class="register-link">Nie masz konta? <a href="/register">Zarejestruj się</a></p>
+
+    {{#if error}}
+      <div class="alert">
+        {{error}}
+      </div>
+    {{/if}}
+
+  </div>
+</body>
+</html>
