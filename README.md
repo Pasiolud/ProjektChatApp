@@ -10,3 +10,10 @@ If the system reports an error about a missing SQLite database module, install i
 Then go to your web browser and enter the local application address, which is usually: http://localhost:3000 You will be taken to the login page.
 From there you can search for friends that also made an account and add them.
 If they accept the friend request you can now both chat(The friend request's are not dynamic so you need to refresh page) - Now you can use chat.
+
+Few ss from the app:
+Chat:
+<img width="1872" height="836" alt="obraz" src="https://github.com/user-attachments/assets/d4876781-82e6-4a29-9722-a3c7018d2eda" />
+
+Friends list and pending invitation:
+<img width="1768" height="602" alt="obraz" src="https://github.com/user-attachments/assets/19117d14-5fb5-47ee-b2f1-a1c6faef68c2" />
